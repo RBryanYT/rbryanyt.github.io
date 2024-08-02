@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+	function copyIP(str){
+		navigator.clipboard.writeText(str);
+	}
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="./assets/rb_tf_folder.png">
+    <title>RB's TF2 Server Directory</title>
+    <style>
+    	@import url('https://fonts.cdnfonts.com/css/tf2-build');
+    	/* welcome to team fortress 2, after 9 years in development, hopefully... it was worth the wait. */
+
+        body {
+            background-color: #000000;
+            color: #00b8fb;
+            font-family: 'TF2 Build', sans-serif;
+        }
+        .servers {
+        	width: 97%;
+            margin: auto;
+        }
+        .entry {
+            display: flex;
+            align-items: center;
+            background-color: #000000;
+            outline: 2px #00b8fb;
+            outline-style: solid;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px #00b8fb;
+        }
+        .entry img {
+            max-width: 200px;
+            height: auto;
+            margin-right: 30px;
+            border-radius: 10px;
+            outline: 2px #00b8fb;
+            outline-style: solid;
+            box-shadow: 0px 0px 12px #00b8fb;
+        }
+        .entry p {
+            margin: 0;
+            margin-right: 40px;
+            text-shadow: 0px 0px 15px #00b8fb;
+        }
+        .entry h1 {
+            font-size: 3em;
+            margin: 0;
+            margin-right: 40px;
+            text-shadow: 0px 0px 10px #00b8fb;
+            font-weight: normal;
+        }
+        .entry a {
+            margin-left: auto;
+            text-decoration: none;
+            font-size: 40px;
+            color: #00b8fb;
+            background-color: #000000;
+            padding: 20px 40px;
+            margin-right: 20px;
+            border-radius: 10px;
+            outline: 3px #00b8fb;
+            outline-style: solid;
+            box-shadow: 0px 0px 12px #00b8fb;
+            text-shadow: 0px 0px 10px #00b8fb;
+        }
+        .entry a:hover {
+            background-color: #004057;
+        }
+        .entry button {
+            margin-left: auto;
+            text-decoration: none;
+            font-size: 20px;
+            color: #006b91;
+            background-color: #000000;
+            padding: 20px 40px;
+            margin-right: 20px;
+            border-radius: 10px;
+            font-family: 'TF2 Build', sans-serif;
+            border: none;
+            cursor: pointer;
+            outline: 3px #006b91;
+            outline-style: solid;
+            box-shadow: 0px 0px 12px #006b91;
+            text-shadow: 0px 0px 10px #006b91;
+        }
+        .entry button:hover {
+            background-color: #002633;
+        }
+        .tags {
+        	margin-top: 10px;
+        	cursor: default;
+        }
+        .tag_orange {
+        	background-color: #000000;
+    		padding: 5px 10px;
+    		border-radius: 5px;
+    		display: inline-block;
+    		margin: 0;
+            outline: 2px #ff8d41;
+            outline-style: solid;
+        }
+        .tag_orange p {
+            margin: 0;
+            color: #ff8d41;
+            text-shadow: 0px 0px 15px #ff8d41;
+        }
+        .tag_yellow {
+        	background-color: #000000;
+    		padding: 5px 10px;
+    		border-radius: 5px;
+    		display: inline-block;
+    		margin: 0;
+            outline: 2px #ffcc3b;
+            outline-style: solid;
+        }
+        .tag_yellow p {
+            margin: 0;
+            color: #ffcc3b;
+            text-shadow: 0px 0px 15px #ffcc3b;
+        }
+        .tag_red {
+        	background-color: #000000;
+    		padding: 5px 10px;
+    		border-radius: 5px;
+    		display: inline-block;
+    		margin: 0;
+            outline: 2px #ff4f4f;
+            outline-style: solid;
+        }
+        .tag_red p {
+            margin: 0;
+            color: #ff4f4f;
+            text-shadow: 0px 0px 15px #ff4f4f;
+        }
+        .tag_blue {
+        	background-color: #000000;
+        	padding: 5px 10px;
+    		border-radius: 5px;
+    		display: inline-block;
+    		margin: 0;
+            outline: 2px #4fb0ff;
+            outline-style: solid;
+        }
+        .tag_blue p {
+            margin: 0;
+            color: #4fb0ff;
+            text-shadow: 0px 0px 15px #4fb0ff;
+        }
+        .tag_green {
+        	background-color: #000000;
+        	padding: 5px 10px;
+    		border-radius: 5px;
+    		display: inline-block;
+    		margin: 0;
+            outline: 2px #61ff8b;
+            outline-style: solid;
+        }
+        .tag_green p {
+            margin: 0;
+            color: #61ff8b;
+            text-shadow: 0px 0px 15px #61ff8b;
+        }
+        .tag_white {
+        	background-color: #000000;
+        	padding: 5px 10px;
+    		border-radius: 5px;
+    		display: inline-block;
+    		margin: 0;
+            outline: 2px #ffffff;
+            outline-style: solid;
+        }
+        .tag_white p {
+            margin: 0;
+            color: #ffffff;
+            text-shadow: 0px 0px 15px #ffffff;
+        }
+
+        #header {
+        	margin-top: -1px;
+        	padding-top: 1.5%;
+        	margin-bottom: -1px;
+        	padding-left: 3%;
+            text-shadow: 0px 0px 10px #00b8fb;
+            font-weight: normal;
+            font-size: 500%;
+        }
+        #about {
+        	margin-bottom: -1px;
+        	margin-top: -1px;
+        	padding-top: 0.9%;
+        	padding-bottom: 2.5%;
+        	padding-left: 3%;
+            text-shadow: 0px 0px 15px #00b8fb;
+            font-size: 125%;
+        }
+        #folder {
+            margin-right: 25px;
+            margin-bottom:-8px;
+            filter: drop-shadow(0px 0px 8px #00b8fb);
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="header"><img id="folder" src="./assets/rb_tf_folder.png" height=75px>RB's TF2 Server Directory</h1>
+	<p id="about">This is a list of every TF2 server I've played and documented here. If you want to suggest a new server, add an issue <a href="https://github.com/RBryanYT/RBsRandomPages/issues" style="color:#00b8fb;" target="_blank">here</a></p>
+
+    <div class="servers">
+        <div class="entry">
+            <img src="https://teamwork.tf/images/maps/trade_rawr.jpg">
+            <div style="width:100%">
+                <h1>Trade Rawr</h1>
+                <p>Map: trade_rawr_v2_2</p>
+                <div class="tags">
+                	<div class="tag_orange" title="This server is meant for trading"><p>Trading</p></div>
+                	<div class="tag_red" title="This server has less than 8 players average"><p>Low Player Count</p></div>
+                	<div class="tag_red" title="This server has no way to end the round"><p>One Round</p></div>
+                </div>
+            </div>
+            <button onclick="copyIP('205.178.177.24:27024')">Copy IP</button>
+            <a href="steam://connect/205.178.177.24:27024">Join</a>
+        </div>
+        <div class="entry">
+            <img src="https://teamwork.tf/images/map_context/trade_plaza/spectator_0.jpg">
+            <div style="width:100%">
+                <h1>Trade Plaza 3</h1>
+                <p>Map: trade_plaza_3_x6</p>
+                <div class="tags">
+                	<div class="tag_orange" title="This server is meant for trading"><p>Trading</p></div>
+                	<div class="tag_green" title="This server has about 16-32 players average"><p>High Player Count</p></div>
+                	<div class="tag_white" title="This server has !rtd enabled"><p>!rtd</p></div>
+                </div>
+            </div>
+            <button onclick="copyIP('141.193.68.170:27019')">Copy IP</button>
+            <a href="steam://connect/141.193.68.170:27019">Join</a>
+        </div>
+        <div class="entry">
+            <img src="https://teamwork.tf/images/maps/plr_highertower_extended.jpg">
+            <div style="width:100%">
+                <h1>x1000 Highertower</h1>
+                <p>Map: plr_highertower_extended</p>
+                <div class="tags">
+                	<div class="tag_blue" title="This server is running a Payload Race map"><p>Payload Race</p></div>
+                	<div class="tag_yellow" title="This server has about 8-16 players average"><p>Medium Player Count</p></div>
+                	<div class="tag_red" title="This server has x1000 weapon stats"><p>x1000</p></div>
+                	<div class="tag_white" title="This server has !rtd enabled"><p>!rtd</p></div>
+                </div>
+            </div>
+            <button onclick="copyIP('85.117.240.76:27065')">Copy IP</button>
+            <a href="steam://connect/85.117.240.76:27065">Join</a>
+        </div>
+        <div class="entry">
+            <img src="https://teamwork.tf/images/maps/vsh_deadlock.jpg">
+            <div style="width:100%">
+                <h1>Gun Game</h1>
+                <p>Map: gg_deadlock_v14</p>
+                <div class="tags">
+                	<div class="tag_yellow" title="This server is running a custom gamemode, Gun Game!"><p>Gun Game</p></div>
+                	<div class="tag_red" title="This server has less than 8 players average"><p>Low Player Count</p></div>
+                	<div class="tag_white" title="This server has !rtd enabled"><p>!rtd</p></div>
+                </div>
+            </div>
+            <button onclick="copyIP('85.117.240.60:27050')">Copy IP</button>
+            <a href="steam://connect/85.117.240.60:27050">Join</a>
+        </div>
+        <div class="entry">
+            <img src="https://teamwork.tf/images/maps/official/vsh_distillery.png">
+            <div style="width:100%">
+                <h1>VS Saxton Hale</h1>
+                <p>Maps: (all vsh) distillery, nucleus, skirmish, tinyrock</p>
+                <div class="tags">
+                	<div class="tag_orange" title="This server is running the official Versus Saxton Hale"><p>Versus Saxton Hale</p></div>
+                	<div class="tag_yellow" title="This server has about 8-16 players average"><p>Medium Player Count</p></div>
+                </div>
+            </div>
+            <button onclick="copyIP('205.178.177.24:27029')">Copy IP</button>
+            <a href="steam://connect/205.178.177.24:27029">Join</a>
+        </div>
+        <div class="entry">
+            <img src="https://teamwork.tf/images/map_context/trade_plaza/spectator_0.jpg">
+            <div style="width:100%">
+                <h1>Trade Plaza 2</h1>
+                <p>Map: trade_plaza_2</p>
+                <div class="tags">
+                    <div class="tag_orange" title="This server is meant for trading"><p>Trading</p></div>
+                    <div class="tag_green" title="This server has about 16-32 players average"><p>High Player Count</p></div>
+                    <div class="tag_white" title="This server has !rtd enabled"><p>!rtd</p></div>
+                    <div class="tag_red" title="This server has no way to end the round"><p>One Round</p></div>
+                </div>
+            </div>
+            <button onclick="copyIP('45.141.52.13:27015')">Copy IP</button>
+            <a href="steam://connect/45.141.52.13:27015">Join</a>
+        </div>
+        <div class="entry">
+            <img src="https://teamwork.tf/images/maps/jump_academy.jpg">
+            <div style="width:100%">
+                <h1>Jump Academy</h1>
+                <p>Map: jumpacademy_2_rc9a</p>
+                <div class="tags">
+                    <div class="tag_orange" title="This server is meant for rocket jumping"><p>Jumping</p></div>
+                    <div class="tag_yellow" title="This server has about 8-16 players average"><p>Medium Player Count</p></div>
+                    <div class="tag_red" title="This server has no way to end the round"><p>One Round</p></div>
+                </div>
+            </div>
+            <button onclick="copyIP('162.248.89.55:27015')">Copy IP</button>
+            <a href="steam://connect/162.248.89.55:27015">Join</a>
+        </div>
+        <div class="entry">
+            <img src="https://wallpapers.com/images/hd/tf2-logo-ytb0azye2ylvppi7.jpg">
+            <div style="width:100%">
+                <h1>Dodgeball</h1>
+                <p>Map: tfdb_indoor_tennis_final</p>
+                <div class="tags">
+                    <div class="tag_red" title="This server is running a custom game mode, Dodgeball!"><p>Dodgeball</p></div>
+                    <div class="tag_red" title="This server has less than 8 players average"><p>Low Player Count</p></div>
+                </div>
+            </div>
+            <button onclick="copyIP('193.38.251.4:27015')">Copy IP</button>
+            <a href="steam://connect/193.38.251.4:27015">Join</a>
+        </div>
+        <div class="entry">
+            <img src="https://img.youtube.com/vi/8xO9s74suRA/maxresdefault.jpg">
+            <div style="width:100%">
+                <h1>Great Blue's Escape Room</h1>
+                <p>Map: cp_getout_rc2</p>
+                <div class="tags">
+                    <div class="tag_white" title="This server is running an escape room map"><p>Escape Room</p></div>
+                    <div class="tag_red" title="This server has less than 8 players average"><p>Low Player Count</p></div>
+                </div>
+            </div>
+            <button onclick="copyIP('66.118.233.108:27022')">Copy IP</button>
+            <a href="steam://connect/66.118.233.108:27022">Join</a>
+        </div>
+        <div class="entry">
+            <img src="https://teamwork.tf/images/maps/pl_freeupward.jpg">
+            <div style="width:100%">
+                <h1>Super Glue and Duct Tape Server</h1>
+                <p>Map: pl_cooler_upward_a4</p>
+                <div class="tags">
+                    <div class="tag_blue" title="This server is running a Payload map"><p>Payload</p></div>
+                    <div class="tag_red" title="This server has less than 8 players average"><p>Low Player Count</p></div>
+                </div>
+            </div>
+            <button onclick="copyIP('79.127.217.197:22974')">Copy IP</button>
+            <a href="steam://connect/79.127.217.197:22974">Join</a>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="./rbs_tf_server_dir.htm" style="text-decoration: none; color: #006b91; text-shadow: 0px 0px 10px #006b91;">Switch to Original Theme</a>
+    </div>
+</body>
+</html>
