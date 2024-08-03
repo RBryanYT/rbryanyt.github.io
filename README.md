@@ -1,2 +1,2 @@
 # RB's Random Pages
-just random things im testing with
+just random webpages i have no host for :(
