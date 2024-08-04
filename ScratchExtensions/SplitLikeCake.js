@@ -1,7 +1,8 @@
 // Name: Split like Cake
 // ID: splitlikecake
-// Description: Split text by a certain character
-// By: RBryanYT [https://scratch.mit.edu/users/a_Gameer0438791]
+// Description: Split text by a certain character.
+// By: RBryanYT <https://scratch.mit.edu/users/a_Gameer0438791>
+// License: MIT
 
 var splittedtext = "";
 
