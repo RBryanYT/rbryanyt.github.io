@@ -2,7 +2,8 @@
 // ID: discordhook
 // Description: Sends messages through Discord webhooks!
 // Note: This was built off of CubesterYT's TurboHook extension.
-// By: RBryanYT [https://scratch.mit.edu/users/a_Gameer0438791]
+// By: RBryanYT <https://scratch.mit.edu/users/a_Gameer0438791>
+// License: MIT
 
 (function(Scratch) {
   const vm = Scratch.vm;
