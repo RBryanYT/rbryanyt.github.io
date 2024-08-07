@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="theme-color" content="#ff4c4c">
+    <meta name="theme-color" content="#ff4c4c">
     <meta property="og:url" content="https://rbryanyt.github.io/turbowarp_extensions/extensions.htm">
     <meta property="og:title" content="RB's TurboWarp Extensions">
     <meta property="og:description" content="This is a list of every TurboWarp extension I've made.">
@@ -10,188 +10,192 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="./assets/favicon.png">
 
-	<title>RB's TurboWarp Extensions</title>
-	<style>
-		body {
-			background: #1e1e1e;
-			margin: 0;
-		}
-		.items {
-			display: flex;
-			justify-content: flex-start;
-			align-content: flex-start;
-			align-items: flex-start;
-			flex-wrap: wrap;
-			overflow-y: auto;
-			padding: 0.5rem;
-			height: calc(100% - 3.125rem);
-			width: calc(100% - 3.125rem);
-			margin-left: 4px;
-		}
-		.item {
-			flex-basis: 300px;
-			max-width: 300px;
-			height: auto;
-			overflow: hidden;
-			padding: 0;
-			align-self: stretch;
-			margin-right: 20px;
-			border-radius: 10px;
-			background: #111111;
-			padding-bottom: 22px;
-			border-style: solid;
-			border-color: #343434;
-			border-width: 2px;
-			color: #eeeeee;
-		}
-		.image {
-			position: relative;
-			width: 100%;
-			box-sizing: border-box;
-		}
-		.image img {
-			aspect-ratio: 2;
-		}
-		.text {
-			text-align: left;
-			padding-left: 1.25rem;
-			padding-top: 10px;
-			padding-bottom: 5px;
-			font-family: Helvetica, sans-serif;
-		}
-		.icon_blue1 {
-			position: relative;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin-top: -2.5rem;
-			align-self: flex-start;
-			background: #4a8af4;
-			width: 3.5rem;
-			height: 3.5rem;
-			border-radius: 0.5rem;
-			border: 0.25rem solid #111111;
-			margin-left: 12px;
-		}
-		.icon_brown1 {
-			position: relative;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin-top: -2.5rem;
-			align-self: flex-start;
-			background: #bf803b;
-			width: 3.5rem;
-			height: 3.5rem;
-			border-radius: 0.5rem;
-			border: 0.25rem solid #111111;
-			margin-left: 12px;
-		}
-		.icon_blurple1 {
-			position: relative;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin-top: -2.5rem;
-			align-self: flex-start;
-			background: #5865f2;
-			width: 3.5rem;
-			height: 3.5rem;
-			border-radius: 0.5rem;
-			border: 0.25rem solid #111111;
-			margin-left: 12px;
-		}
-		.icon_img {
-			filter: drop-shadow(0px 0px 3px #00000055);
-		}
+    <title>RB's TurboWarp Extensions</title>
+    <style>
+        body {
+            background: #1e1e1e;
+            margin: 0;
+        }
+        .items {
+            display: flex;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            overflow-y: auto;
+            padding: 0.5rem;
+            height: calc(100% - 3.125rem);
+            width: calc(100% - 3.125rem);
+            margin-left: 4px;
+        }
+        .item {
+            flex-basis: 300px;
+            max-width: 300px;
+            height: auto;
+            overflow: hidden;
+            padding: 0;
+            align-self: stretch;
+            margin-right: 20px;
+            border-radius: 10px;
+            background: #111111;
+            padding-bottom: 22px;
+            border-style: solid;
+            border-color: #343434;
+            border-width: 2px;
+            color: #eeeeee;
+        }
+        .image {
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .image img {
+            aspect-ratio: 2;
+        }
+        .text {
+            text-align: left;
+            padding-left: 1.25rem;
+            padding-top: 10px;
+            padding-bottom: 5px;
+            font-family: Helvetica, sans-serif;
+        }
+        .icon_blue1 {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -2.5rem;
+            align-self: flex-start;
+            background: #4a8af4;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 0.5rem;
+            border: 0.25rem solid #111111;
+            margin-left: 12px;
+        }
+        .icon_brown1 {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -2.5rem;
+            align-self: flex-start;
+            background: #bf803b;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 0.5rem;
+            border: 0.25rem solid #111111;
+            margin-left: 12px;
+        }
+        .icon_blurple1 {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -2.5rem;
+            align-self: flex-start;
+            background: #5865f2;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 0.5rem;
+            border: 0.25rem solid #111111;
+            margin-left: 12px;
+        }
+        .icon_img {
+            filter: drop-shadow(0px 0px 3px #00000055);
+        }
 
-		.top_bar {
-			width: 100%;
-			height: 50px;
-			background: #7d2424;
-			text-align: center;
-			color: #ff4c4c;
-			font-family: Helvetica, sans-serif;
-			font-size: 1rem;
-			letter-spacing: 0.4px;
-			line-height: 50px;
-			font-size: 1.2rem;
-			margin-bottom: 5px;
-		}
-		.top_bar p {
+        .top_bar {
+            width: 100%;
+            height: 50px;
+            background: #7d2424;
+            text-align: center;
+            color: #ff4c4c;
+            font-family: Helvetica, sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.4px;
+            line-height: 50px;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        .top_bar p {
             margin: 0;
             padding: 0;
             text-shadow: 0px 0px 10px #ff4c4c;
         }
 
         .ext_btn {
-        	padding: 0.5rem;
-        	padding-left: 0.75rem;
-        	padding-right: 0.75rem;
-        	border-radius: 5px;
-        	border: none;
-        	text-decoration: none;
-        	color: #ffffff;
-        	background: #ff4c4c;
-        	transition: 0.2s ease-out;
+            padding: 0.5rem;
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+            border-radius: 5px;
+            border: none;
+            text-decoration: none;
+            color: #ffffff;
+            background: #ff4c4c;
+            transition: 0.2s ease-out;
         }
 
         .ext_btn:hover {
-        	background: #ab3737;
-        	color: #d7d7d7;
+            background: #ab3737;
+            color: #d7d7d7;
         }
-	</style>
+
+        .sample_btn {
+            margin-right: 20px;
+        }
+    </style>
 </head>
 
 <body>
-	<div class="top_bar">
-		<p>RB's TurboWarp Extensions</p>	
-	</div>
+    <div class="top_bar">
+        <p>RB's TurboWarp Extensions</p>    
+    </div>
 
-	<div class="items">
-		<div class="item">
-			<div class="image">
-				<img src="./assets/project_translate_ext.png" class="image" loading="lazy" draggable="false">
-			</div>
-			<div class="icon_blue1">
-				<img class="icon_img" src="./assets/project_translate.png" width="40px" height="40px">
-			</div>
-			<div class="text">
-				<span style="font-weight:bold;">Project Translate</span>
-				<br>
-				<span>Translate your projects into different languages.</span>
-				<br>
-				<br>
-				<a class="ext_btn" href="https://turbowarp.org/?project_url=rbryanyt.github.io/turbowarp_extensions/sample/project_translate.sb3" target="_blank">Sample Project</a>
-				<a class="ext_btn" href="./extensions/project_translate.js" target="_blank">Open URL</a>
-			</div>
-		</div>
-		<div class="item">
-			<div class="image">
-				<img src="./assets/split_like_cake_ext.png" class="image" loading="lazy" draggable="false">
-			</div>
-			<div class="icon_brown1">
-				<img class="icon_img" src="./assets/split_like_cake.png" width="40px" height="40px">
-			</div>
-			<div class="text">
-				<span style="font-weight:bold;">Split like Cake</span>
-				<br>
-				<span>Split text by a certain character.</span>
-			</div>
-		</div>
-		<div class="item">
-			<div class="image">
-				<img src="./assets/discord_hook_ext.png" class="image" loading="lazy" draggable="false">
-			</div>
-			<div class="icon_blurple1">
-				<img class="icon_img" src="./assets/discord_hook.png" width="40px" height="40px">
-			</div>
-			<div class="text">
-				<span style="font-weight:bold;">Discord Hook</span>
-				<br>
-				<span>Send messages through Discord webhooks.</span>
-			</div>
-		</div>
-	</div>
+    <div class="items">
+        <div class="item">
+            <div class="image">
+                <img src="./assets/project_translate_ext.png" class="image" loading="lazy" draggable="false">
+            </div>
+            <div class="icon_blue1">
+                <img class="icon_img" src="./assets/project_translate.png" width="40px" height="40px">
+            </div>
+            <div class="text">
+                <span style="font-weight:bold;">Project Translate</span>
+                <br>
+                <span>Translate your projects into different languages.</span>
+                <br>
+                <br>
+                <a class="ext_btn sample_btn" href="https://turbowarp.org/?project_url=rbryanyt.github.io/turbowarp_extensions/sample/project_translate.sb3" target="_blank">Sample Project</a>
+                <a class="ext_btn" href="./extensions/project_translate.js" target="_blank">Open URL</a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="image">
+                <img src="./assets/split_like_cake_ext.png" class="image" loading="lazy" draggable="false">
+            </div>
+            <div class="icon_brown1">
+                <img class="icon_img" src="./assets/split_like_cake.png" width="40px" height="40px">
+            </div>
+            <div class="text">
+                <span style="font-weight:bold;">Split like Cake</span>
+                <br>
+                <span>Split text by a certain character.</span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="image">
+                <img src="./assets/discord_hook_ext.png" class="image" loading="lazy" draggable="false">
+            </div>
+            <div class="icon_blurple1">
+                <img class="icon_img" src="./assets/discord_hook.png" width="40px" height="40px">
+            </div>
+            <div class="text">
+                <span style="font-weight:bold;">Discord Hook</span>
+                <br>
+                <span>Send messages through Discord webhooks.</span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
