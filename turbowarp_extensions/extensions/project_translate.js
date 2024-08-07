@@ -184,16 +184,26 @@ Scratch.translate.setup(
     setTranslationKey(args) {
       if (translationKeys[args.LANG] == null){
         translationKeys[args.LANG] = {}
-        translationKeys[args.LANG][args.KEY] = args.VAL
       }
+      translationKeys[args.LANG][args.KEY] = args.VAL
     }
   
     translationKeyInLang(args) {
-      return translationKeys[args.LANG][args.KEY]
+      if (translationKeys[args.LANG][args.KEY] != null) {
+        return translationKeys[args.LANG][args.KEY]
+      }
+      else {
+        return Scratch.translate("No translation key in that language")
+      }
     }
   
     translationKey(args) {
-      return translationKeys[curLang][args.KEY]
+      if (translationKeys[curLang][args.KEY] != null) {
+        return translationKeys[curLang][args.KEY]
+      }
+      else {
+        return Scratch.translate("No translation key in current language")
+      }
     }
   
     currentLangCode() {
@@ -209,7 +219,7 @@ Scratch.translate.setup(
     }
 
     showTurboLimit() {
-      alert(Scratch.translate("Due to TurboWarp limitations, you have to use this block (↓) everytime you switch your TurboWarp language"))
+      alert(Scratch.translate("Due to TurboWarp limitations, you have to use the block below every time you switch your TurboWarp language"))
     }
   }
   Scratch.extensions.register(new ProjectTranslate());
