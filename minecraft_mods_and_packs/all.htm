@@ -99,6 +99,8 @@
 
 <body>
 	<h1 class="title">RB's Minecraft Mods & Packs</h1>
+	<h3 style="color: #55FF55; text-shadow: 3px 3px #153F15; font-weight: normal;" class="title" id="total_down"><b>(loading...)</b> total downloads</h3>
+
 	<div class="grid">
 		<div class="entry">
 			<img src="https://cdn.modrinth.com/data/36r6d1lc/554383f34cadddd10919cde913c297b6257c0ffd.png" width=15%>
@@ -207,27 +209,40 @@
     return asyncFunc();
   }
 
+  var totalDownloads = 0;
+
+  function updateTotalDownloads(downloads) {
+    totalDownloads += downloads;
+    document.getElementById("total_down").innerHTML = `<b>${totalDownloads.toLocaleString()}</b> total downloads`;
+  }
+
   getDownloads("craftable-hearts").then(downloads => {
-  	document.getElementById("ch_down").innerHTML = `<b>${downloads}</b> downloads`;
+    document.getElementById("ch_down").innerHTML = `<b>${downloads}</b> downloads`;
+    updateTotalDownloads(downloads);
   });
-
+  
   getDownloads("rtd-mod").then(downloads => {
-  	document.getElementById("rtd_down").innerHTML = `<b>${downloads}</b> downloads`;
+    document.getElementById("rtd_down").innerHTML = `<b>${downloads}</b> downloads`;
+    updateTotalDownloads(downloads);
   });
-
+  
   getDownloads("neon-command-blocks").then(downloads => {
-  	document.getElementById("ncb_down").innerHTML = `<b>${downloads}</b> downloads`;
+    document.getElementById("ncb_down").innerHTML = `<b>${downloads}</b> downloads`;
+    updateTotalDownloads(downloads);
   });
-
+  
   getDownloads("more-grass-heights").then(downloads => {
-  	document.getElementById("mgh_down").innerHTML = `<b>${downloads}</b> downloads`;
+    document.getElementById("mgh_down").innerHTML = `<b>${downloads}</b> downloads`;
+    updateTotalDownloads(downloads);
   });
-
+  
   getDownloads("voluntary-exile-fix").then(downloads => {
-  	document.getElementById("vef_down").innerHTML = `<b>${downloads}</b> downloads`;
+    document.getElementById("vef_down").innerHTML = `<b>${downloads}</b> downloads`;
+    updateTotalDownloads(downloads);
   });
-
+  
   getDownloads("rotated-crafting").then(downloads => {
-  	document.getElementById("rc_down").innerHTML = `<b>${downloads}</b> downloads`;
+    document.getElementById("rc_down").innerHTML = `<b>${downloads}</b> downloads`;
+    updateTotalDownloads(downloads);
   });
 </script>
