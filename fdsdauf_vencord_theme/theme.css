@@ -1,0 +1,71 @@
+/*
+  ░██████╗██████╗░████████╗░█████╗░░██████╗
+  ██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██╔════╝
+  ╚█████╗░██║░░██║░░░██║░░░██║░░██║╚█████╗░
+  ░╚═══██╗██║░░██║░░░██║░░░██║░░██║░╚═══██╗
+  ██████╔╝██████╔╝░░░██║░░░╚█████╔╝██████╔╝
+  ╚═════╝░╚═════╝░░░░╚═╝░░░░╚════╝░╚═════╝░
+
+  "some discord tweaks or something"
+
+  version b1
+*/
+
+/* Notice: this theme is designed for Discord web and Vencord. */
+/* This theme was designed for Vencord D919cd6 (Web) and Discord Stable 320089 (278aa9f) */
+
+/* SETTINGS */
+:root {
+    --showActivitiesButton: none; /* hide = none, show = flex */
+    --showHelpButton: none; /* hide = none, show = flex */
+}
+
+.spriteContainer_d91a75 { /* Force Emoji on Emoji Button */
+    /*
+    --custom-emoji-sprite-row: 0 !important;
+    --custom-emoji-sprite-col: 0 !important;
+    */
+
+    /* NOTICE: UNCOMMENT THOSE VARIABLES TO FORCE A CERTAIN EMOJI ON THE EMOJI BUTTON */
+
+    /* also scroll down to find the table of emojis */
+}
+/* change above variables to change settings about this theme */
+
+/* --------------------------------------------------------------------------------------------------- */
+
+.channelAppLauncher_df39bd { /* Activities Button */
+    display: var(--showActivitiesButton);
+}
+
+.anchor_af404b { /* Help Button */
+    display: var(--showHelpButton);
+}
+
+/*
+EMOJI TABLE FOR FORCE EMOJI ON EMOJI BUTTON
+format: (row, col, :emoji_name:)
+
+0, 0, :imp:
+0, 1, :cold_face:
+0, 2, :cry:
+0, 3, :kissing_heart:
+0, 4, :face_vomiting:
+0, 5, :face_with_diagonal_mouth:
+0, 6, :mask:
+0, 7, :face_with_monocle:
+0, 8, :astonished:
+0, 9, :stuck_out_tongue:
+0, 10, :smiley:
+0, 11, :kissing:
+0, 12, :kissing_smiling_eyes:
+0, 13, :money_mouth:
+0, 14, :relieved:
+0, 15, :sleeping:
+0, 16, :disappointed:
+0, 17, :wink:
+0, 18, :zany_face:
+0, 19, :disappointed_relieved:
+
+this is still work in progress .-.
+*/
