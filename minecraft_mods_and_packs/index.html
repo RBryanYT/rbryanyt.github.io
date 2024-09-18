@@ -217,32 +217,32 @@
   }
 
   getDownloads("craftable-hearts").then(downloads => {
-    document.getElementById("ch_down").innerHTML = `<b>${downloads}</b> downloads`;
+    document.getElementById("ch_down").innerHTML = `<b>${downloads.toLocaleString()}</b> downloads`;
     updateTotalDownloads(downloads);
   });
   
   getDownloads("rtd-mod").then(downloads => {
-    document.getElementById("rtd_down").innerHTML = `<b>${downloads}</b> downloads`;
+    document.getElementById("rtd_down").innerHTML = `<b>${downloads.toLocaleString()}</b> downloads`;
     updateTotalDownloads(downloads);
   });
   
   getDownloads("neon-command-blocks").then(downloads => {
-    document.getElementById("ncb_down").innerHTML = `<b>${downloads}</b> downloads`;
+    document.getElementById("ncb_down").innerHTML = `<b>${downloads.toLocaleString()}</b> downloads`;
     updateTotalDownloads(downloads);
   });
   
   getDownloads("more-grass-heights").then(downloads => {
-    document.getElementById("mgh_down").innerHTML = `<b>${downloads}</b> downloads`;
+    document.getElementById("mgh_down").innerHTML = `<b>${downloads.toLocaleString()}</b> downloads`;
     updateTotalDownloads(downloads);
   });
   
   getDownloads("voluntary-exile-fix").then(downloads => {
-    document.getElementById("vef_down").innerHTML = `<b>${downloads}</b> downloads`;
+    document.getElementById("vef_down").innerHTML = `<b>${downloads.toLocaleString()}</b> downloads`;
     updateTotalDownloads(downloads);
   });
   
   getDownloads("rotated-crafting").then(downloads => {
-    document.getElementById("rc_down").innerHTML = `<b>${downloads}</b> downloads`;
+    document.getElementById("rc_down").innerHTML = `<b>${downloads.toLocaleString()}</b> downloads`;
     updateTotalDownloads(downloads);
   });
 </script>
