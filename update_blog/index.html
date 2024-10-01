@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>RBryanYT.github.io Update Blog</title>
+	<style>
+		@font-face {
+			font-family: "cube_pixel_green";
+			src: url("./assets/cube_pixel_green.ttf");
+			/* Free to use font I made */
+		}
+
+		body {
+			background: #132229;
+			color: #ebf9ff;
+			font-family: cube_pixel_green, Arial, sans-serif;
+		}
+
+		rb-tag {
+			padding-bottom: 3px;
+			padding-top: -1px;
+			color: currentColor;
+			border-radius: 5px;
+			white-space: nowrap;
+			padding-left: 8px;
+			padding-right: 8px;
+			margin-right: 4px;
+			margin-left: 2px;
+		}
+		rb-tag a {
+			color: currentColor;
+			text-decoration: none;
+		}
+		rb-tag img {
+			height: 15px;
+		}
+
+		.title {
+			text-align: center;
+			color: #54c8ff;
+		}
+		p[class="title"] { /* why do i need to do p[class="title"] { like .title p { should work */
+			margin-bottom: 25px;
+		}
+		hr {
+			background: radial-gradient(circle, #05afff, #132229);
+			border: 0px solid;
+			width: 97.5%;
+			height: 3px;
+		}
+
+		hr#sep_line {
+			background: radial-gradient(circle, #05afff, #132229);
+			border: 0px solid;
+			width: 97.5%;
+			height: 2px;
+			opacity: 0.33;
+		}
+
+		em {
+			opacity: 0.25;
+			font-style: normal;
+		}
+		strong {
+			opacity: 0.25;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 50%;
+			padding-left: 10px;
+		}
+
+		.content {
+			margin-left: 2.5%;
+			margin-right: 2.5%;
+		}
+	</style>
+</head>
+<body>
+	<h1 class="title">RBryanYT.github.io Update Blog</h1>
+	<p class="title" id="welcome_splash"><i>loading...</i></p>
+	<hr>
+
+	<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= THE ACTUAL BLOG =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= THE ACTUAL BLOG =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= THE ACTUAL BLOG =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	<div class="content">
+		<h1>Update Blog <strong>10/1/2024 at 3:50 PM</strong></h1>
+		<p>Welcome to the update "blog" of RBryanYT.github.io! This "blog" is mainly just for documenting updates to this site.</p>
+		<p>Who knows? Maybe I'll post stuff that isn't updates here.</p>
+		<h2>Features</h2>
+		<p>Theres some cool looking links that took too long to make, because I decided to make them custom HTML tags for some reason... Anyways, here's one of these <rb-tag hex="#00bbff" link="https://www.example.com/">cool looking links.</rb-tag></p>
+		<p>There's also custom pixel art emojis! <px-emoji>smile</px-emoji> <em>(which are also custom html tags...)</em></p>
+		<br>
+		<em>literally the most generic "blog" possible</em>
+		<br>
+		<br>
+
+		<hr id="sep_line">
+
+		<h1>Test Post <strong>10/1/2024 at 3:45 PM - (edited 10/1/2024 at 4:10 PM)</strong></h1>
+		<p>Sample Text <rb-tag hex="#00bbff" link="https://www.example.com/">Link</rb-tag> <px-emoji>no eyes</px-emoji> <em>(non important parentheses)</em></p>
+	</div>
+	<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= THE ACTUAL BLOG =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= THE ACTUAL BLOG =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= THE ACTUAL BLOG =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+</body>
+
+<script>
+	const welcome_splashes = ["Welcome!", "Does this even count as a blog?", "Now with emojis.", "My online presence is so useless .-.", "If you see the Source missing texture, an emoji is missing.", "literally a changelog", "the most generic \"blog\" on the internet"]
+	document.getElementById("welcome_splash").innerHTML = welcome_splashes[Math.floor(Math.random() * welcome_splashes.length)]
+
+	class RBTagElement extends HTMLElement {
+		constructor() {
+			super();
+		}
+	
+		connectedCallback() {
+			const hex = this.getAttribute("hex");
+			const link = this.getAttribute("link");
+			const image = this.getAttribute("image");
+
+			if (hex) {
+				this.style.color = hex;
+				this.style.background = hex + "33";
+			} else {
+				this.style.color = "#00bbff";
+				this.style.background = "00bbff33";
+			}
+
+			if (link) {
+				const originalInnerHTML = this.innerHTML
+			 	this.innerHTML = "";
+
+				const a = document.createElement("a");
+				const inHTML = document.createTextNode(originalInnerHTML);
+				a.appendChild(inHTML);
+				a.href = link;
+				a.target = "_blank"
+				this.appendChild(a);
+			}
+		}
+	}
+
+	const emojiNames = {
+		"smile": [2, 0],
+		"smile open mouth": [0, 0],
+		"very happy smile open mouth": [1, 0],
+		"very happy smile": [3, 0],
+		"sweat": [4, 0],
+		"upside down smile": [5, 0],
+		"blush": [6, 0],
+		"halo": [7, 0],
+		"heart eyes": [8, 0],
+		"starry eyes": [9, 0],
+		"no eyes": [0, 1],
+		"missing": [1, 1]
+	}
+	class PXEmojiElement extends HTMLElement {
+		constructor() {
+			super();
+		}
+	
+		connectedCallback() {
+			this.style.width = "24px";
+			this.style.height = "24px";
+			this.style.objectFit = "none";
+			this.style.backgroundImage = `url(\"./assets/px_emoji_${this.getAttribute("custom_img") || "default"}.png\")`;
+			this.style.backgroundSize = "1000%";
+			this.style.display = "inline-block";
+			this.style.imageRendering = "pixelated";
+			this.style.position = "relative";
+			this.style.top = "4px";
+			this.style.right = "1px";
+
+			let positionX = "-24px";
+			let positionY = "-24px";
+			if (emojiNames[this.innerHTML]) {
+				positionX = `${emojiNames[this.innerHTML][0] * 24 * -1}px` || "-24px";
+				positionY = `${emojiNames[this.innerHTML][1] * 24 * -1}px` || "-24px";
+			}
+			else {
+				positionX = "-24px";
+				positionY = "-24px";
+			}
+
+			this.innerHTML = ""
+
+			this.style.backgroundPosition = `${positionX} ${positionY}`;
+		}
+	}
+	
+	customElements.define("rb-tag", RBTagElement);
+	customElements.define("px-emoji", PXEmojiElement);
+</script>
+</html>

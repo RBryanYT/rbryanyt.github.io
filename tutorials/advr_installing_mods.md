@@ -8,6 +8,8 @@ Once you have your cable and adapter, plug the cable into the adapter, and the a
 
 Now turn on your Quest. Once it powers on, plug the cable into the Quest's charging port. You should see a notification on the quest talking about allowing the connected device to access files. Click the notification. *You have to keep the cable plugged in until your mods are fully transferred over.*
 
+**If you don't see a notification talking about files, and only one talking about Oculus Link, you need to [enable developer mode.](https://rbryanyt.github.io/tutorials/quest_dev_mode)**
+
 Now you should see either Windows AutoPlay or a new file explorer window at your Quest. If you see AutoPlay, choose to view files in File Explorer.
 
 Now go to `Internal shared storage/Android/data/de.erthu.ancientdungeonfull/files`.
