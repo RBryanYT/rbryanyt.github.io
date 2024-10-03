@@ -85,12 +85,18 @@
 	<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= THE ACTUAL BLOG =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 	<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= THE ACTUAL BLOG =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 	<div class="content">
+		<h1>mailto: Protocol Extension <strong>10/3/2024 at 2:19 PM</strong></h1>
+		<p>New pretty basic <rb-tag hex="#ff4c4c" link="https://rbryanyt.github.io/turbowarp_extensions">TurboWarp extension.</rb-tag> <px-emoji>turbowarp</px-emoji></p>
+		<p>It allows you to just use a block to easily make a mailto: link, nothing big.</p>
+		<br>
+		<i>Also this was inspired by <rb-tag hex="#986ee2" link="https://github.com/TurboWarp/extensions/pull/1651">this pull request.</rb-tag></i>
+
+		<hr id="sep_line">
+
 		<h1>Removed the TurboWarp extensions file directory <strong>10/2/2024 at 8:55 PM</strong></h1>
 		<p>The file directory was kind of useless, and hard to keep up with, so I just removed it. <px-emoji>meh</px-emoji></p>
 		<br>
 		<p>Oh also the update "blog" got a new emoji and I tweaked the missing emoji because it was too small.</p>
-		<br>
-		<br>
 
 		<hr id="sep_line">
 
@@ -102,8 +108,6 @@
 		<p>There's also custom pixel art emojis! <px-emoji>smile</px-emoji> <em>(which are also custom html tags...)</em></p>
 		<br>
 		<em>literally the most generic "blog" possible</em>
-		<br>
-		<br>
 
 		<hr id="sep_line">
 
@@ -127,7 +131,6 @@
 		connectedCallback() {
 			const hex = this.getAttribute("hex");
 			const link = this.getAttribute("link");
-			const image = this.getAttribute("image");
 
 			if (hex) {
 				this.style.color = hex;
@@ -139,13 +142,14 @@
 
 			if (link) {
 				const originalInnerHTML = this.innerHTML
-			 	this.innerHTML = "";
+				this.innerHTML = "";
 
 				const a = document.createElement("a");
 				const inHTML = document.createTextNode(originalInnerHTML);
 				a.appendChild(inHTML);
 				a.href = link;
-				a.target = "_blank"
+				a.target = "_blank";
+
 				this.appendChild(a);
 			}
 		}
@@ -164,6 +168,7 @@
 		"starry eyes": [9, 0],
 		"no eyes": [0, 1],
 		"meh": [2, 1],
+		"turbowarp": [3, 1],
 		"missing": [1, 1]
 	}
 	class PXEmojiElement extends HTMLElement {
