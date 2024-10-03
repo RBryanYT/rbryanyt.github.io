@@ -1,3 +1,5 @@
+/* this does not work well and is serving as a backup because im trying out a new discord theme im making */
+
 /*
   ░██████╗██████╗░████████╗░█████╗░░██████╗
   ██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██╔════╝
@@ -8,25 +10,30 @@
 
   "some discord tweaks or something"
 
-  version b1
+  version b3
 */
 
 /* Notice: this theme is designed for Discord web and Vencord. */
-/* This theme was designed for Vencord D919cd6 (Web) and Discord Stable 320089 (278aa9f) */
+/* This theme was designed on Vencord 46715753 (Web) and Discord Stable 331573 (18887297) */
+/* This update to the theme was designed from 9/3/2024 to [secondary date] */
 
 /* SETTINGS */
 :root {
     --showActivitiesButton: none; /* hide = none, show = flex */
     --showHelpButton: none; /* hide = none, show = flex */
+    --showActivitiesVoiceButton: none; /* hide = none, show = flex */
+    --showGiftButton: none; /* hide = none, show = flex */
+    --showDiscoveryIcon: none; /* hide = none, show = flex */
+    /* --hideSlowmodeText: none; /* hide = none, show = flex */
 }
 
-.spriteContainer_d91a75 { /* Force Emoji on Emoji Button */
+.spriteContainer_d91a75 {
     /*
     --custom-emoji-sprite-row: 0 !important;
     --custom-emoji-sprite-col: 0 !important;
     */
 
-    /* NOTICE: UNCOMMENT THOSE VARIABLES TO FORCE A CERTAIN EMOJI ON THE EMOJI BUTTON */
+    /* NOTE: UNCOMMENT THOSE VARIABLES TO FORCE A CERTAIN EMOJI ON THE EMOJI BUTTON */
 
     /* also scroll down to find the table of emojis */
 }
@@ -38,9 +45,33 @@
     display: var(--showActivitiesButton);
 }
 
-.anchor_af404b { /* Help Button */
+.iconWrapper_fc4f04[aria-label="Help"] { /* Help Button */
     display: var(--showHelpButton);
 }
+
+.actionButtons_adcaac button[aria-label="Start An Activity"] /* Activities Voice Button */
+{
+    display: var(--showActivitiesVoiceButton);
+}
+
+.button_dd4f85[aria-label="Send a gift"] /* Gift Button */
+{
+    display: var(--showGiftButton);
+}
+
+.fixedDiscoveryIcon_fea3ef /* Discovery Button */
+{
+    display: var(--showDiscoveryIcon)
+}
+
+/* .base_d7ebeb
+{
+    display: none;
+}
+.slowModeIcon_d7ebeb
+{
+    display: block !important;
+} */
 
 /*
 EMOJI TABLE FOR FORCE EMOJI ON EMOJI BUTTON
