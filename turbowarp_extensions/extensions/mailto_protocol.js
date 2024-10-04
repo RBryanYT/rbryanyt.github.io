@@ -23,7 +23,7 @@
 		}
 	};
 
-	class DiscordHook {
+	class mailtoProtocol {
 		getInfo() {
 			return {
 				id: 'mailtoprotocol',
@@ -138,7 +138,7 @@
 			}
 		}
 	}
-	Scratch.extensions.register(new DiscordHook());
+	Scratch.extensions.register(new mailtoProtocol());
 
 	var ampneeded = false;
 
