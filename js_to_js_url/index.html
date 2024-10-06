@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>JS to JS: URL Converter</title>
+		<link rel="icon" type="image/x-icon" href="favicon.png">
+		<style>
+			@font-face {
+				font-family: "Kollektif";
+				src: url("kollektif_bold.ttf");
+			}
+
+			.left_side {
+				width: 50vw;
+				height: 100vh;
+				background: #00d0ff;
+				position: fixed;
+				left: 0px;
+				top: 0px;
+			}
+			.right_side {
+				width: 50vw;
+				height: 100vh;
+				background: #0077ff;
+				position: fixed;
+				left: 50%;
+				top: 0px;
+			}
+
+			textarea {
+				padding: 7px;
+				border-radius: 10px;
+				resize: none;
+				position: fixed;
+				width: 35%;
+				height: 66%;
+				top: 10.5%;
+				color: #001124;
+			}
+			.left_side textarea {
+				left: 5.5%;
+				border: 5px solid #0077ff;
+				background: #e4faff;
+			}
+			.right_side textarea {
+				left: 57.5%;
+				border: 5px solid #00d0ff;
+				background: #e4faff;
+			}
+			textarea::placeholder {
+				color: #001124;
+				opacity: 0.5;
+			}
+
+			button {
+				padding: 7px;
+				border: 0;
+				border-radius: 10px;
+				resize: none;
+				position: fixed;
+				width: 36.5%;
+				height: 7.5%;
+				top: 82.5%;
+				font-weight: bold;
+				cursor: pointer;
+				font-family: Kollektif;
+				font-size: 120%;
+			}
+			.left_side button {
+				background: #0077ff;
+				color: #e4faff;
+				left: 5.5%;
+			}
+			.right_side button {
+				background: #00d0ff;
+				color: #001124;
+				left: 57.5%;
+			}
+			.left_side button:hover {
+				background: #006ce8;
+			}
+			.right_side button:hover {
+				background: #2ad8ff;
+			}
+			.left_side button:active {
+				background: #0060ce;
+			}
+			.right_side button:active {
+				background: #4fdfff;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="left_side">
+			<textarea id="js_code" placeholder="JavaScript Code" spellcheck="false"></textarea>
+			<button onclick="encodeToJsURL()">Turn into javascript: URL</button>
+		</div>
+		<div class="right_side">
+			<textarea id="js_url" placeholder="javascript: URL" spellcheck="false" readonly="true"></textarea>
+			<button onclick="copyJsURL()">Copy URL</button>
+		</div>
+	</body>
+	<script>
+		function encodeToJsURL() {
+			document.getElementById("js_url").value = "javascript:"+encodeURIComponent(document.getElementById("js_code").value);
+		}
+		function copyJsURL() {
+			document.getElementById("js_url").select();
+			document.getElementById("js_url").setSelectionRange(0, 99999999); // mobile?
+
+			navigator.clipboard.writeText(document.getElementById("js_url").value);
+		}
+	</script>
+</html>
