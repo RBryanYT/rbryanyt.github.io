@@ -914,7 +914,7 @@
   <div class="tab-content"></div>
   <div class="settings-version-info">
     Pluskel
-    <span class="settings-version">a.1</span>
+    <span class="settings-version">a.2</span>
     based on Piskel
     <span rel="tooltip" data-placement="bottom" title="View release notes">
       <a  class="settings-version" target="_blank"
@@ -1378,9 +1378,9 @@
   (function () {
 
 /**
- * See @Gruntfile.js => after build, -2024-10-12-09-47 is replaced by the build version
+ * See @Gruntfile.js => after build, -2024-10-13-03-10 is replaced by the build version
  */
-var version = '-2024-10-12-09-47';
+var version = '-2024-10-13-03-10';
 var versionHasNotBeenReplaced = version.indexOf('@@') === 0;
 if (versionHasNotBeenReplaced)  {
   version = '';
@@ -1395,7 +1395,7 @@ window._onPiskelReady = function () {
   loadingMask.style.opacity = 0;
   window.setTimeout(function () {loadingMask.parentNode.removeChild(loadingMask);}, 600);
   pskl.app.init();
-  pskl._releaseVersion = 'a.1';
+  pskl._releaseVersion = 'a.2';
   // cleanup
   delete window.pskl_exports;
   delete window.loadDebugScripts;

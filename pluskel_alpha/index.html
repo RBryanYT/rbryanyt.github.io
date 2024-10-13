@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Pluskel</title>
-  <meta name="description" content="">
-  <meta name="author" content="Julian Descottes">
+
+  <meta name="theme-color" content="#fefefe">
+  <meta property="og:url" content="https://rbryanyt.github.io/pluskel_alpha">
+  <meta property="og:title" content="Pluskel">
+  <meta property="og:description" content="A mod of Piskel, a pixel art editor. Work in progress! (alpha)">
+  <meta property="og:image" content="https://rbryanyt.github.io/pluskel_alpha/img/favicon-up.png">
+
+  <title>Pluskel Alpha</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="img/favicon.png">
 </head>
@@ -21,7 +26,7 @@
     z-index : 20000;
     transition:opacity 0.5s;
     color:white;">
-      <span style="top:45%">Loading Pluskel...</span>
+      <span style="top:45%">Loading Pluskel Alpha...</span>
   </div>
   <style type="text/css">
   #main-wrapper {
@@ -993,7 +998,7 @@
     <div class="tab-content"></div>
     <div class="settings-version-info">
       Pluskel
-      <span class="settings-version">a.1</span>
+      <span class="settings-version">a.2</span>
       based on Piskel
       <span rel="tooltip" data-placement="bottom" title="View release notes">
         <a  class="settings-version" target="_blank"
@@ -1457,9 +1462,9 @@
     (function () {
 
   /**
-   * See @Gruntfile.js => after build, -2024-10-12-09-47 is replaced by the build version
+   * See @Gruntfile.js => after build, -2024-10-13-03-10 is replaced by the build version
    */
-  var version = '-2024-10-12-09-47';
+  var version = '-2024-10-13-03-10';
   var versionHasNotBeenReplaced = version.indexOf('@@') === 0;
   if (versionHasNotBeenReplaced)  {
     version = '';
@@ -1474,7 +1479,7 @@
     loadingMask.style.opacity = 0;
     window.setTimeout(function () {loadingMask.parentNode.removeChild(loadingMask);}, 600);
     pskl.app.init();
-    pskl._releaseVersion = 'a.1';
+    pskl._releaseVersion = 'a.2';
     // cleanup
     delete window.pskl_exports;
     delete window.loadDebugScripts;

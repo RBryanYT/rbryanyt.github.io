@@ -12555,25 +12555,23 @@ if (!Uint32Array.prototype.fill) {
     }
   };
 
-  ns.ColorUtils.invertPiskelFormattedColor = function(weirdColor) {
-    // piskel is weird so this inverts whatever color format this is: 4278190080
+  ns.ColorUtils.invertHexColor = function(hexColor, invertNumber) {
+    hexColor = hexColor.replace("#", "");
 
-    let a = (weirdColor >> 24) & 0xFF;
+    const r = parseInt(hexColor.substr(0, 2), 16);
+    const g = parseInt(hexColor.substr(2, 2), 16);
+    const b = parseInt(hexColor.substr(4, 2), 16);
 
-    let r = (weirdColor >> 16) & 0xFF;
-    let g = (weirdColor >> 8) & 0xFF;
-    let b = weirdColor & 0xFF;
-    console.log(r.toString());
-    console.log(g.toString());
-    console.log(b.toString());
+    const invertedR = Math.abs(invertNumber - r);
+    const invertedG = Math.abs(invertNumber - g);
+    const invertedB = Math.abs(invertNumber - b);
 
-    const invertedR = 255 - r;
-    const invertedG = 255 - g;
-    const invertedB = 255 - b;
-
-    const invertedWeirdColor = (a << 24) | (invertedR << 16) | (invertedG << 8) | invertedB;
-
-    return invertedWeirdColor;
+    const invertedHex = "#" + 
+      invertedR.toString(16).padStart(2, "0") +
+      invertedG.toString(16).padStart(2, "0") +
+      invertedB.toString(16).padStart(2, "0");
+  
+    return invertedHex;
   }
 })();
 ;(function () {
@@ -24147,7 +24145,7 @@ return Q;
 ;(function () {
   var ns = $.namespace('pskl.controller.preview');
 
-  var POPUP_TITLE = 'Pluskel - preview';
+  var POPUP_TITLE = 'Pluskel Alpha - Preview';
 
   ns.PopupPreviewController = function (piskelController) {
     this.piskelController = piskelController;
@@ -24807,8 +24805,10 @@ return Q;
       new pskl.tools.drawing.Lighten(),
       new pskl.tools.drawing.DitheringTool(),
       new pskl.tools.drawing.ColorPicker(),
-      new pskl.tools.drawing.Outliner()//,
-      // new pskl.tools.drawing.InvertColors()
+      new pskl.tools.drawing.Outliner(),
+      new pskl.tools.drawing.InvertColors(),
+      new pskl.tools.drawing.GradientStroke(),
+      new pskl.tools.drawing.Noise()
     ];
 
     this.toolIconBuilder = new pskl.tools.ToolIconBuilder();
@@ -31391,11 +31391,13 @@ return Q;
       SHAPE_SELECT : createShortcut('tool-shape-select', 'Shape selection', 'Z'),
       RECTANGLE_SELECT : createShortcut('tool-rectangle-select', 'Rectangle selection', 'S'),
       LASSO_SELECT : createShortcut('tool-lasso-select', 'Lasso selection', 'H'),
-      LIGHTEN : createShortcut('tool-lighten', 'Lighten tool', 'U'),
+      LIGHTEN : createShortcut('tool-lighten', 'Darken tool', 'U'),
       DITHERING : createShortcut('tool-dithering', 'Dithering tool', 'T'),
       COLORPICKER : createShortcut('tool-colorpicker', 'Color picker', 'O'),
       OUTLINER : createShortcut('tool-outliner', 'Outline tool', 'Q'),
-      INVERTCOLORS : createShortcut('tool-invert', 'Invert tool', 'I')
+      INVERTCOLORS : createShortcut('tool-invert', 'Invert tool', 'I'),
+      GRADIENTSTROKE : createShortcut('tool-gradient-stroke', 'Gradient stroke tool', 'G'),
+      NOISE : createShortcut('tool-noise', 'Noise tool', 'F')
     },
 
     SELECTION : {
@@ -32562,11 +32564,11 @@ ns.ToolsHelper = {
     this.superclass.constructor.call(this);
 
     this.toolId = 'tool-lighten';
-    this.helpText = 'Lighten';
+    this.helpText = 'Darken tool'; // Inverted in Pluskel, Lighten tool is the Darken tool now :)
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.LIGHTEN;
 
     this.tooltipDescriptors = [
-      {key : 'ctrl', description : 'Darken'},
+      {key : 'ctrl', description : 'Lighten'},
       {key : 'shift', description : 'Apply only once per pixel'}
     ];
   };
@@ -32607,13 +32609,13 @@ ns.ToolsHelper = {
     }
 
     var step = oncePerPixel ? DEFAULT_STEP * 2 : DEFAULT_STEP;
-    var isDarken = pskl.utils.UserAgent.isMac ?  event.metaKey : event.ctrlKey;
+    var isLighten = pskl.utils.UserAgent.isMac ?  event.metaKey : event.ctrlKey;
 
     var color;
-    if (isDarken) {
-      color = window.tinycolor.darken(pskl.utils.intToColor(pixelColor), step);
-    } else {
+    if (isLighten) {
       color = window.tinycolor.lighten(pskl.utils.intToColor(pixelColor), step);
+    } else {
+      color = window.tinycolor.darken(pskl.utils.intToColor(pixelColor), step);
     }
 
     // Convert tinycolor color to string format.
@@ -33605,83 +33607,336 @@ ns.ToolsHelper = {
     pskl.PixelUtils.outlineSimilarConnectedPixelsFromFrame(frame, replayData.col, replayData.row, replayData.color, replayData.fillCorners);
   };
 })();
-;// doesnt work rn :(
-
+;/**
+ * @provide pskl.tools.drawing.InvertColors
+ *
+ * @require Constants
+ * @require pskl.utils
+ */
 (function() {
-	var ns = $.namespace('pskl.tools.drawing');
+  var ns = $.namespace('pskl.tools.drawing');
 
-	ns.InvertColors = function() {
-		this.toolId = 'tool-invert';
-		this.helpText = 'Invert tool';
-		this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.INVERTCOLORS;
+  ns.InvertColors = function() {
+    this.superclass.constructor.call(this);
 
-		this.previousCol = null;
-		this.previousRow = null;
+    this.toolId = 'tool-invert';
+    this.helpText = 'Invert tool';
+    this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.INVERTCOLORS;
 
-		this.processedPixels = new Set();
-	};
+    this.tooltipDescriptors = [
+      {key : 'ctrl', description : 'Half invert (very weird)'}
+    ];
+  };
 
-	pskl.utils.inherit(ns.InvertColors, ns.BaseTool);
+  pskl.utils.inherit(ns.InvertColors, ns.SimplePen);
 
-	ns.InvertColors.prototype.supportsDynamicPenSize = function() {
-		return true;
-	};
+  /**
+   * @Override
+   */
+  ns.InvertColors.prototype.applyToolAt = function(col, row, frame, overlay, event) {
+    this.previousCol = col;
+    this.previousRow = row;
 
-	ns.InvertColors.prototype.applyToolAt = function(col, row, frame, overlay, event) {
-		var pixelKey = col + ',' + row;
+    var penSize = pskl.app.penSizeService.getPenSize();
+    var points = pskl.PixelUtils.resizePixel(col, row, penSize);
+    points.forEach(function (point) {
+      var modifiedColor = this.getModifiedColor_(point[0], point[1], frame, overlay, event);
+      this.draw(modifiedColor, point[0], point[1], frame, overlay);
+    }.bind(this));
+  };
 
-		if (!this.processedPixels.has(pixelKey)) {
-			var color = frame.getPixel(col, row);
-			if (color) {
-				var invColor = pskl.utils.ColorUtils.invertPiskelFormattedColor(color);
-				this.drawUsingPenSize(invColor, col, row, frame, overlay);
-				this.processedPixels.add(pixelKey);
-			}
-		}
-	};
+  ns.InvertColors.prototype.getModifiedColor_ = function(col, row, frame, overlay, event) {
+    // get colors in overlay and in frame
+    var overlayColor = overlay.getPixel(col, row);
+    var frameColor = frame.getPixel(col, row);
 
-	ns.InvertColors.prototype.draw = function(color, col, row, frame, overlay) {
-		overlay.setPixel(col, row, color);
-		frame.setPixel(col, row, color);
-	};
+    var isPixelModified = overlayColor !== pskl.utils.colorToInt(Constants.TRANSPARENT_COLOR);
+    var pixelColor = isPixelModified ? overlayColor : frameColor;
 
-	ns.InvertColors.prototype.drawUsingPenSize = function(color, col, row, frame, overlay) {
-		var penSize = pskl.app.penSizeService.getPenSize();
-		var points = pskl.PixelUtils.resizePixel(col, row, penSize);
-		points.forEach(function(point) {
-			this.draw(color, point[0], point[1], frame, overlay);
-		}.bind(this));
-	};
+    var isTransparent = pixelColor === pskl.utils.colorToInt(Constants.TRANSPARENT_COLOR);
+    if (isTransparent) {
+      return Constants.TRANSPARENT_COLOR;
+    }
 
-	ns.InvertColors.prototype.moveToolAt = function(col, row, frame, overlay, event) {
-		if ((Math.abs(col - this.previousCol) > 1) || (Math.abs(row - this.previousRow) > 1)) {
-			var interpolatedPixels = pskl.PixelUtils.getLinePixels(col, this.previousCol, row, this.previousRow);
-			for (var i = 0, l = interpolatedPixels.length; i < l; i++) {
-				var coords = interpolatedPixels[i];
-				this.applyToolAt(coords.col, coords.row, frame, overlay, event);
-			}
-		} else {
-			this.applyToolAt(col, row, frame, overlay, event);
-		}
+    if (isPixelModified) {
+      return pixelColor;
+    }
 
-		this.previousCol = col;
-		this.previousRow = row;
-	};
+    var color;
+    if (pskl.utils.UserAgent.isMac ?  event.metaKey : event.ctrlKey) {
+      var color = pskl.utils.ColorUtils.invertHexColor(pskl.utils.intToColor(pixelColor), 128);
+    } else {
+      var color = pskl.utils.ColorUtils.invertHexColor(pskl.utils.intToColor(pixelColor), 255);
+    }
 
-	ns.InvertColors.prototype.releaseToolAt = function(col, row, frame, overlay, event) {
-		this.setPixelsToFrame_(frame, this.processedPixels);
+    return color;
+  };
+})();
+;/**
+ * @provide pskl.tools.drawing.GradientStroke
+ *
+ * @require pskl.utils
+ */
+(function() {
+  var ns = $.namespace('pskl.tools.drawing');
 
-		this.raiseSaveStateEvent({
-			pixels: Array.from(this.processedPixels),
-			color: this.getToolColor()
-		});
+  // just a mod of stroke tool
 
-		this.resetUsedPixels_();
-	};
+  ns.GradientStroke = function() {
+    this.toolId = 'tool-gradient-stroke';
+    this.helpText = 'Gradient stroke tool';
+    this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.GRADIENTSTROKE;
+    this.tooltipDescriptors = [
+      {key : 'shift', description : 'Hold shift to draw straight lines'}
+    ];
 
-	ns.InvertColors.prototype.resetUsedPixels_ = function() {
-		this.processedPixels.clear();
-	};
+    // GradientStroke's first point coordinates (set in applyToolAt)
+    this.startCol = null;
+    this.startRow = null;
+  };
+
+  pskl.utils.inherit(ns.GradientStroke, ns.BaseTool);
+
+  ns.GradientStroke.prototype.supportsDynamicPenSize = function() {
+    return true;
+  };
+
+  /**
+   * @override
+   */
+  ns.GradientStroke.prototype.applyToolAt = function(col, row, frame, overlay, event) {
+    this.startCol = col;
+    this.startRow = row;
+
+    // When drawing a stroke we don't change the model instantly, since the
+    // user can move his cursor to change the stroke direction and length
+    // dynamically. Instead we draw the (preview) stroke in a fake canvas that
+    // overlay the drawing canvas.
+    // We wait for the releaseToolAt callback to impact both the
+    // frame model and canvas rendering.
+
+    this.startColor = pskl.app.selectedColorsService.getPrimaryColor();
+    this.endColor = pskl.app.selectedColorsService.getSecondaryColor();
+
+    // The fake canvas where we will draw the preview of the stroke:
+    // Drawing the first point of the stroke in the fake overlay canvas:
+    overlay.setPixel(col, row, this.startColor);
+  };
+
+  ns.GradientStroke.prototype.moveToolAt = function(col, row, frame, overlay, event) {
+    overlay.clear();
+
+    var penSize = pskl.app.penSizeService.getPenSize();
+    var isStraight = event.shiftKey;
+    var rightClick = pskl.app.mouseStateService.isRightButtonPressed();
+
+    var color;
+    if (!rightClick) {
+      color = pskl.app.selectedColorsService.getPrimaryColor();
+    }
+    else {
+      color = pskl.app.selectedColorsService.getSecondaryColor();
+    }
+
+    if (color == Constants.TRANSPARENT_COLOR) {
+      // When mousemoving the stroke tool, we draw in the canvas overlay above the drawing canvas.
+      // If the stroke color is transparent, we won't be
+      // able to see it during the movement.
+      // We set it to a semi-opaque white during the tool mousemove allowing to see colors below the stroke.
+      // When the stroke tool will be released, It will draw a transparent stroke,
+      // eg deleting the equivalent of a stroke.
+      color = Constants.SELECTION_TRANSPARENT_COLOR;
+    }
+
+    this.draw_(col, row, color, overlay, penSize, isStraight, rightClick);
+  };
+
+  /**
+   * @override
+   */
+  ns.GradientStroke.prototype.releaseToolAt = function(col, row, frame, overlay, event) {
+    var penSize = pskl.app.penSizeService.getPenSize();
+    var isStraight = event.shiftKey;
+    var rightClick = pskl.app.mouseStateService.isRightButtonPressed();
+
+    // The user released the tool to draw a line. We will compute the pixel coordinate, impact
+    // the model and draw them in the drawing canvas (not the fake overlay anymore)
+    this.draw_(col, row, this.startColor, frame, penSize, isStraight, rightClick);
+
+    // For now, we are done with the stroke tool and don't need an overlay anymore:
+    overlay.clear();
+
+    this.raiseSaveStateEvent({
+      col : col,
+      row : row,
+      startCol : this.startCol,
+      startRow : this.startRow,
+      startColor: this.startColor,
+      endColor: this.endColor,
+      penSize : penSize,
+      isStraight : isStraight,
+      rightClick : rightClick,
+      frameState: frame.getPixels()
+    });
+  };
+
+  ns.GradientStroke.prototype.draw_ = function (col, row, color, targetFrame, penSize, isStraight, rightClick) {
+    var linePixels;
+    if (isStraight) {
+      linePixels = pskl.PixelUtils.getUniformLinePixels(this.startCol, col, this.startRow, row);
+    } else {
+      linePixels = pskl.PixelUtils.getLinePixels(col, this.startCol, row, this.startRow);
+    }
+
+    for (var i = 0; i < linePixels.length; i++) {
+      var point = linePixels[i];
+  
+      var ratio = i / (linePixels.length - 1);
+  
+      var interpolatedColor;
+      if (!rightClick) {
+        interpolatedColor = this.interpolateColor(this.endColor, this.startColor, ratio);
+      }
+      else {
+        interpolatedColor = this.interpolateColor(this.startColor, this.endColor, ratio);
+      }
+      
+      pskl.PixelUtils.resizePixel(point.col, point.row, penSize).forEach(function (pixelPoint) {
+        targetFrame.setPixel(pixelPoint[0], pixelPoint[1], interpolatedColor);
+      });
+    }
+  };
+
+  ns.GradientStroke.prototype.hexToRgb = function(hex) {
+    var bigint = parseInt(hex.slice(1), 16);
+    return [
+      (bigint >> 16) & 255,
+      (bigint >> 8) & 255,
+      bigint & 255
+    ];
+  };
+
+  ns.GradientStroke.prototype.rgbToHex = function(r, g, b) {
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+  };
+
+  ns.GradientStroke.prototype.interpolateColor = function(color1, color2, ratio) {
+    var c1 = this.hexToRgb(color1);
+    var c2 = this.hexToRgb(color2);
+  
+    var r = Math.round(c1[0] + ratio * (c2[0] - c1[0]));
+    var g = Math.round(c1[1] + ratio * (c2[1] - c1[1]));
+    var b = Math.round(c1[2] + ratio * (c2[2] - c1[2]));
+  
+    return this.rgbToHex(r, g, b);
+  };
+
+  ns.GradientStroke.prototype.replay = function(frame, replayData) {
+    frame.setPixels(replayData.frameState);
+    this.startCol = replayData.startCol;
+    this.startRow = replayData.startRow;
+    this.startColor = replayData.startColor;
+    this.endColor = replayData.endColor;
+    this.draw_(replayData.col, replayData.row, replayData.startColor, replayData.endColor, frame, replayData.penSize, replayData.isStraight, replayData.rightClick);
+  };
+
+})();
+;/**
+ * @provide pskl.tools.drawing.Noise
+ *
+ * @require Constants
+ * @require pskl.utils
+ */
+(function() {
+  var ns = $.namespace('pskl.tools.drawing');
+  var STEP_A_MAX = 5;
+  var STEP_B_MAX = 10;
+  var STEP_C_MAX = 15;
+
+  var STEP_A_MAX_L = 3;
+  var STEP_B_MAX_L = 7;
+  var STEP_C_MAX_L = 12;
+
+  ns.Noise = function() {
+    this.superclass.constructor.call(this);
+
+    this.toolId = 'tool-noise';
+    this.helpText = 'Noise tool';
+    this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.NOISE;
+
+    this.tooltipDescriptors = [
+      {key : 'alt', description : 'Lighten'},
+      {key : 'shift', description : '2x intensity'},
+      {key : 'ctrl', description : '3x intensity'}
+    ];
+  };
+
+  pskl.utils.inherit(ns.Noise, ns.SimplePen);
+
+  /**
+   * @Override
+   */
+  ns.Noise.prototype.applyToolAt = function(col, row, frame, overlay, event) {
+    this.previousCol = col;
+    this.previousRow = row;
+
+    var penSize = pskl.app.penSizeService.getPenSize();
+    var points = pskl.PixelUtils.resizePixel(col, row, penSize);
+    points.forEach(function (point) {
+      var modifiedColor = this.getModifiedColor_(point[0], point[1], frame, overlay, event);
+      this.draw(modifiedColor, point[0], point[1], frame, overlay);
+    }.bind(this));
+  };
+
+  ns.Noise.prototype.getModifiedColor_ = function(col, row, frame, overlay, event) {
+    // get colors in overlay and in frame
+    var overlayColor = overlay.getPixel(col, row);
+    var frameColor = frame.getPixel(col, row);
+
+    var isPixelModified = overlayColor !== pskl.utils.colorToInt(Constants.TRANSPARENT_COLOR);
+    var pixelColor = isPixelModified ? overlayColor : frameColor;
+
+    var isTransparent = pixelColor === pskl.utils.colorToInt(Constants.TRANSPARENT_COLOR);
+    if (isTransparent) {
+      return Constants.TRANSPARENT_COLOR;
+    }
+
+    if (isPixelModified) {
+      return pixelColor;
+    }
+
+    var isLighten = event.altKey;
+
+    var color;
+    if (pskl.utils.UserAgent.isMac ?  event.metaKey : event.ctrlKey) {
+      if (isLighten) {
+        color = window.tinycolor.lighten(pskl.utils.intToColor(pixelColor), (Math.floor(Math.random() * STEP_C_MAX_L) + 1) * 2);
+      } else {
+        color = window.tinycolor.darken(pskl.utils.intToColor(pixelColor), (Math.floor(Math.random() * STEP_C_MAX) + 1) * 2);
+      }
+    }
+    else if (event.shiftKey) {
+      if (isLighten) {
+        color = window.tinycolor.lighten(pskl.utils.intToColor(pixelColor), (Math.floor(Math.random() * STEP_B_MAX_L) + 1) * 2);
+      } else {
+        color = window.tinycolor.darken(pskl.utils.intToColor(pixelColor), (Math.floor(Math.random() * STEP_B_MAX) + 1) * 2);
+      }
+    }
+    else {
+      if (isLighten) {
+        color = window.tinycolor.lighten(pskl.utils.intToColor(pixelColor), (Math.floor(Math.random() * STEP_A_MAX_L) + 1) * 2);
+      } else {
+        color = window.tinycolor.darken(pskl.utils.intToColor(pixelColor), (Math.floor(Math.random() * STEP_A_MAX) + 1) * 2);
+      }
+    }
+
+    // Convert tinycolor color to string format.
+    return color.toHexString();
+  };
+
+  ns.Noise.prototype.supportsAlt = function() {
+    return true;
+  };
 })();
 ;/**
  * @provide pskl.tools.drawing.ColorSwap
