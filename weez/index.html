@@ -2,8 +2,9 @@
 	document.addEventListener('click', weez);
 
 	function weez() {
-		document.body.style.setProperty('backdrop-filter', 'none', 'important');
+		document.body.style.setProperty('backdrop-filter', 'brightness(1) blur(0px)', 'important');
 		document.querySelector("p").style.setProperty('filter', 'opacity(0)', 'important');
+		document.body.style.setProperty('cursor', 'default', 'important');
 
 		document.removeEventListener('click', weez);
 	
@@ -12,10 +13,20 @@
 		audio.play();
 	
 		audio.addEventListener('ended', () => {
-			window.close();
+			document.body.style.setProperty('backdrop-filter', 'brightness(0.25) blur(25px)', 'important');
+			document.body.style.setProperty('cursor', 'pointer', 'important');
+			document.querySelector("p").style.setProperty('filter', 'opacity(1)', 'important');
+
+			document.addEventListener('click', weez);
 		});
 	}
 </script>
+
+<meta name="theme-color" content="#0090c4">
+<meta property="og:url" content="https://rbryanyt.github.io/weez">
+<meta property="og:title" content="weezer">
+<meta property="og:description" content="weezer">
+<meta property="og:image" content="./weez.jpg">
 
 <link rel="icon" type="image/x-icon" href="weez.jpg">
 
@@ -37,6 +48,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		cursor: pointer;
 
 		backdrop-filter: brightness(0.25) blur(25px);
 		transition: 0.25s linear;
@@ -48,7 +60,6 @@
 		font-size: 50px;
 		color: white;
 		text-shadow: 0px 0px 15px #0090c4, 0px 0px 20px #0090c4, 0px 0px 25px #0090c4, 0px 0px 30px #0090c4, 0px 0px 35px #0090c4;
-		cursor: default;
 
 		transition: 0.25s linear;
 		filter: opacity(1);
