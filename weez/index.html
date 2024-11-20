@@ -1,23 +1,65 @@
 <script>
-	document.addEventListener('click', weez);
+	var weez_count = localStorage.getItem("weez") == null ? 0 : localStorage.getItem("weez");
+
+	var reset_allowed = true;
+
+	function sleep(ms) {
+		return new Promise(resolve => setTimeout(resolve, ms));
+	}
+
+	document.addEventListener("DOMContentLoaded", () => {
+		document.querySelector("span").innerHTML = `you have weezered ${weez_count} time${weez_count == 1 ? "" : "s"}`;
+	});
+
+	document.addEventListener("keydown", function(event) {
+		if (event.key == "r" && event.altKey && reset_allowed) {
+			document.removeEventListener("click", weez);
+
+			document.body.style.setProperty("background-image", 'url("evil_weez.jpg")', "important");
+			document.querySelector("link").href = "evil_weez.jpg";
+			document.querySelector("p").style.setProperty("text-shadow", "0px 0px 5px #ff1d3a, 0px 0px 10px #ff1d3a, 0px 0px 15px #ff1d3a, 0px 0px 20px #ff1d3a, 0px 0px 25px #ff1d3a, 0px 0px 30px #ff1d3a, 0px 0px 35px #ff1d3a, 0px 0px 40px #ff1d3a, 0px 0px 45px #ff1d3a, 0px 0px 50px #ff1d3a", "important")
+
+			sleep(500).then(() => {
+				document.querySelector("span").innerHTML = "you have weezered 0 times";
+				localStorage.setItem("weez", 0);
+
+				document.body.style.setProperty("background-image", 'url("weez.jpg")', "important");
+				document.querySelector("link").href = "weez.jpg";
+				document.querySelector("p").style.setProperty("text-shadow", "0px 0px 5px #00bbff, 0px 0px 10px #00bbff, 0px 0px 15px #00bbff, 0px 0px 20px #00bbff, 0px 0px 25px #00bbff, 0px 0px 30px #00bbff, 0px 0px 35px #00bbff, 0px 0px 40px #00bbff, 0px 0px 45px #00bbff, 0px 0px 50px #00bbff", "important")
+
+				document.addEventListener("click", weez);
+			});
+		}
+	});
+
+	document.addEventListener("click", weez);
 
 	function weez() {
-		document.body.style.setProperty('backdrop-filter', 'brightness(1) blur(0px)', 'important');
-		document.querySelector("p").style.setProperty('filter', 'opacity(0)', 'important');
-		document.body.style.setProperty('cursor', 'default', 'important');
+		weez_count++;
 
-		document.removeEventListener('click', weez);
+		reset_allowed = false;
+
+		document.body.style.setProperty("backdrop-filter", "brightness(1) blur(0px)", "important");
+		document.querySelector("p").style.setProperty("filter", "opacity(0)", "important");
+		document.body.style.setProperty("cursor", "default", "important");
+
+		document.removeEventListener("click", weez);
 	
-		const audio = new Audio('weez.mp3');
+		const audio = new Audio("weez.mp3");
 	
 		audio.play();
 	
-		audio.addEventListener('ended', () => {
-			document.body.style.setProperty('backdrop-filter', 'brightness(0.25) blur(25px)', 'important');
-			document.body.style.setProperty('cursor', 'pointer', 'important');
-			document.querySelector("p").style.setProperty('filter', 'opacity(1)', 'important');
+		audio.addEventListener("ended", () => {
+			document.querySelector("span").innerHTML = `you have weezered ${weez_count} time${weez_count == 1 ? "" : "s"}`;
+			localStorage.setItem("weez", weez_count);
 
-			document.addEventListener('click', weez);
+			reset_allowed = true;
+
+			document.body.style.setProperty("backdrop-filter", "brightness(0.25) blur(25px)", "important");
+			document.body.style.setProperty("cursor", "pointer", "important");
+			document.querySelector("p").style.setProperty("filter", "opacity(1)", "important");
+
+			document.addEventListener("click", weez);
 		});
 	}
 </script>
@@ -26,7 +68,6 @@
 <meta property="og:url" content="https://rbryanyt.github.io/weez">
 <meta property="og:title" content="weezer">
 <meta property="og:description" content="weezer">
-<meta property="og:image" content="./weez.jpg">
 
 <link rel="icon" type="image/x-icon" href="weez.jpg">
 
@@ -40,8 +81,8 @@
 
 	body {
 		margin: 0px;
-		image-rendering: pixelated;
-		background: url("weez.jpg");
+		background-color: #0090c4;
+		background-image: url("weez.jpg");
 		background-repeat: no-repeat;
 		background-attachment: fixed; 
 		background-size: 100% 100%;
@@ -51,7 +92,8 @@
 		cursor: pointer;
 
 		backdrop-filter: brightness(0.25) blur(25px);
-		transition: 0.25s linear;
+		transition: backdrop-filter 0.25s linear;
+		text-align: center;
 	}
 
 	p {
@@ -59,11 +101,11 @@
 		font-weight: 600;
 		font-size: 50px;
 		color: white;
-		text-shadow: 0px 0px 15px #0090c4, 0px 0px 20px #0090c4, 0px 0px 25px #0090c4, 0px 0px 30px #0090c4, 0px 0px 35px #0090c4;
+		/* should be #0090c4 but no */
+		text-shadow: 0px 0px 5px #00bbff, 0px 0px 10px #00bbff, 0px 0px 15px #00bbff, 0px 0px 20px #00bbff, 0px 0px 25px #00bbff, 0px 0px 30px #00bbff, 0px 0px 35px #00bbff, 0px 0px 40px #00bbff, 0px 0px 45px #00bbff, 0px 0px 50px #00bbff;
 
-		transition: 0.25s linear;
+		transition: filter 0.25s linear;
 		filter: opacity(1);
 	}
 </style>
-
-<p>click for weezer</p>
+<p>click for weezer<br><br><span style="font-size: 25px;">you have weezered 0 times</span><br><br><span style="opacity:0.33; font-size: 15px;">press r to reset</span></p>
