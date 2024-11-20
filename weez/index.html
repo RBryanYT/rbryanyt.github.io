@@ -22,6 +22,7 @@
 			sleep(500).then(() => {
 				document.querySelector("span").innerHTML = "you have weezered 0 times";
 				localStorage.setItem("weez", 0);
+				weez_count = 0;
 
 				document.body.style.setProperty("background-image", 'url("weez.jpg")', "important");
 				document.querySelector("link").href = "weez.jpg";
