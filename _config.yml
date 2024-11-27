@@ -2,7 +2,7 @@ include:
 - .well-known
 
 collections:
-	main_site:
-		output: true
-	cdn:
-		output: true
+  main_site:
+    output: true
+  cdn:
+    output: true
