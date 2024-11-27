@@ -1,16 +1,19 @@
-# RB's Pages
-A GitHub Page with a bunch of stuff that I've made.
+hi there :)
 
-## Some Pages:
-[RBryanYT.github.io Update Blog](https://rbryanyt.github.io/update_blog)
+# Some Pages
+[rbryan.me Updates](https://rbryan.me/updates)
 
 ---
 
-[My TF2 Server Directory (list of tf2 servers i played and documented)](https://rbryanyt.github.io/tf2_server_dir)
+[My Minecraft Mods & Packs (list of mods, datapacks, and resourcepacks i made for minecraft)](https://rbryan.me/minecraft_mods_and_packs)
 
-[My TurboWarp Extensions (list of extensions i made for turbowarp)](https://rbryanyt.github.io/turbowarp_extensions)
-<!-- [[file directory]](https://rbryanyt.github.io/turbowarp_extensions/files) -->
+[My TurboWarp Extensions (list of extensions i made for turbowarp)](https://rbryan.me/turbowarp_extensions)
+<!-- [[file directory]](https://rbryan.me/turbowarp_extensions/files) -->
 
-[My Minecraft Mods & Packs (list of mods, datapacks, and resourcepacks i made for minecraft)](https://rbryanyt.github.io/minecraft_mods_and_packs)
+[My TF2 Server Directory (list of tf2 servers i played and documented)](https://rbryan.me/tf2_server_dir)
 
-[JavaScript to javascript: URL Converter](https://rbryanyt.github.io/js_to_js_url)
+---
+
+[JavaScript to javascript: URL Converter](https://rbryan.me/js_to_js_url)
+
+[w e e z](https://rbryan.me/weez)

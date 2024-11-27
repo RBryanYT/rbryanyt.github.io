@@ -11,7 +11,7 @@ __Underline__
 ~~Underline~~
 `~~Strikethrough~~`
 
-*oh they can also stack*
+__***oh they can also stack***__
 
 # Emojis
 :octocat: `:octocat:`

@@ -43,4 +43,5 @@ If it isn't, that's why it isn't showing.
 
 ---
 
-***This tutorial doesn't cover PCVR, sorry!***
+[PCVR Version](https://rbryan.me/tutorials/advr_installing_mods_pcvr)
+***Most information in this tutorial hasn't been verified completely, but it should be self-explanatory.***
