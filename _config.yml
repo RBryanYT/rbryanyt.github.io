@@ -4,5 +4,7 @@ include:
 collections:
   main_site:
     output: true
+    permalink: /:path/
   cdn:
-    output: true
+    output: false
+    permalink: /:path/
