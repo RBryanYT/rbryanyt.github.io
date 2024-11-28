@@ -8,3 +8,6 @@ collections:
   cdn:
     output: false
     permalink: /:path/
+  redirect:
+    output: true
+    permalink: /:path/
