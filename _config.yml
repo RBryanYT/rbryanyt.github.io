@@ -6,7 +6,7 @@ collections:
     output: true
     permalink: /:path/
   cdn:
-    output: false
+    output: true
     permalink: /:path/
   redirect:
     output: true
