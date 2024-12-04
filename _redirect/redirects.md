@@ -8,3 +8,4 @@ title: Redirects
 ---
 `mpM` - Ancient Dungeon VR Metal Pipe mod
 `pOv` - Ancient Dungeon VR Metal Pipe mod (old version)
+`Stu` - "Shut up" SFX
