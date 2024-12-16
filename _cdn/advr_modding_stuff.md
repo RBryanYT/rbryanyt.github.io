@@ -60,12 +60,29 @@ if helperMethods.IsValidWithLuck(0.09, 0.11, 0.1) then
 player.maxHealth = 10 -- Set to 5 hearts (10 HP)
 ```
 
+### Heal Player
+```lua
+player.Heal(1, false) -- Second argument determines if it will be protection or not (1 HP is 0.5 hearts)
+```
+
 ### Kill Player
 ```lua
 player.onDeath(nil)
 ```
 
+## Miscellaneous
+
+### Check if Food Eaten is a Certain Type
+```lua
+function onFoodEaten(food)
+	if food.livingBase.livingId == "item_food_potato" then -- If the food is a potato, heal the player
+		player.Heal(1, false)
+	end
+end
+```
+
 ## Hide HP
 ```lua
 game.playerStatsUI.playerHP.gameObject.setActive(false) -- Hides HP on hand
+--                                                         or would if Mr. Eric Thullen made his game functional
 ```
