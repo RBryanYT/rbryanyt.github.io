@@ -1,3 +1,8 @@
+---
+permalink: /advr_modding_stuff.html
+layout: default
+---
+
 # RB's Ancient Dungeon VR Modding Stuff
 A bunch of random code snippets for doing stuff in ADVR modding.
 
